@@ -8,6 +8,9 @@ class MenuScene extends Phaser.Scene {
             frameWidth: 420,  // The width of each frame in the spritesheet
             frameHeight: 320  // The height of each frame in the spritesheet
         });
+        this.load.image('knight_halo','images/knight_halo.png');
+
+
         this.load.spritesheet('findmatch-button', 'images/findmatch-button.png', {
             frameWidth: 300,  
             frameHeight: 39 
@@ -25,6 +28,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image('avatar0','images/avatar0.png');
         this.load.image('avatar1','images/avatar1.png');
         this.load.image('match-found','images/match-found.png');
+        this.load.image('match-heart','images/match-heart.png');
         this.load.spritesheet('match-searching', 'images/match-searching.png', {
             frameWidth: 700,  
             frameHeight: 80 

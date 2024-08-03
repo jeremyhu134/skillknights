@@ -78,7 +78,7 @@ class ArenaScene extends Phaser.Scene {
         
         
         
-        gameState.player = this.physics.add.sprite(-100, -100,'default_knight');
+        gameState.player = this.physics.add.sprite(-100, -100,'default_knight').setDepth(1);
         if(gameState.playerStats.position == "player1"){
             gameState.player.x = 180;
             gameState.player.y = 200;
@@ -197,6 +197,26 @@ class ArenaScene extends Phaser.Scene {
                 scene.scene.start("MenuScene");
             });
             gameState.initialized = true;
+
+            socket.on("death",()=>{
+                gameState.player2.health = 100;
+                gameState.player2.visible = false;
+                gameState.player2.lives --;
+                gameState.spriteDeath(scene, socket,gameState.player2);
+            });
+
+            socket.on("matchLost",()=>{
+                scene.time.addEvent({
+                    delay: 3000,
+                    callback: ()=>{
+                        gameState.playerStats.resetStats();
+                        scene.scene.start("MenuScene");
+                    },
+                    callbackScope: scene
+                });
+            });
+
+            gameState.initialized = true;
         }
     }
     update(){
@@ -224,7 +244,12 @@ class ArenaScene extends Phaser.Scene {
             gameState.player.body.velocity.y += 50;
         }
         
-        
+        if(gameState.playerStats.health <= 0){
+            gameState.playerStats.respawn();
+            gameState.spriteDeath(this, socket, gameState.player,"you");
+            gameState.playerStats.lives --;
+            socket.emit("death");
+        }
         
         if(gameState.playerStats.attackAnimation == false){
             if(!gameState.player.body.touching.down){

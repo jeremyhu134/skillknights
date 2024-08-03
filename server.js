@@ -97,6 +97,14 @@ io.on('connection',(socket)=>{
         io.to(findOtherSocketId(socket.id)).emit('takeDamage',dmg);
     });
 
+    socket.on('death', ()=>{   
+        io.to(findOtherSocketId(socket.id)).emit("death");
+    });
+
+    socket.on('matchLost', ()=>{   
+        io.to(findOtherSocketId(socket.id)).emit("matchLost");
+    });
+
     socket.on('disconnect',()=>{
         console.log('user disconnected', socket.id);
         io.to(findOtherSocketId(socket.id)).emit('endMatch');
