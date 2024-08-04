@@ -102,56 +102,53 @@ class ArenaScene extends Phaser.Scene {
         
         // Detect if the device is mobile
         if (this.sys.game.device.os.android || this.sys.game.device.os.iOS || this.sys.game.device.os.windowsPhone) {
-            gameState.upButton = this.add.sprite(150,500,"arena-mobilebutton").setOrigin(0,0).setInteractive();
+            gameState.upButton = this.add.sprite(150,420,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.upButton.setAlpha(0.5);
             gameState.upButton.on('pointerover', function () {
-                findMatchButton.anims.play("animate");
+                gameState.movingDown = false;
+                gameState.movingUp = true;
+            });
+            gameState.upButton.on('pointerout', function () {
+                gameState.movingUp = false;
+            });
+
+            gameState.downButton = this.add.sprite(150,530,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.downButton.setAlpha(0.5);
+            gameState.downButton.flipY = true;
+            gameState.downButton.on('pointerover', function () {
+                gameState.movingUp = false;
+                gameState.movingDown = true;
+            });
+            gameState.downButton.on('pointerout', function () {
+                gameState.movingDown = false;
+            });
+
+            gameState.rightButton = this.add.sprite(220,550,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.rightButton.setAlpha(0.5);
+            gameState.rightButton.flipY = true;
+            gameState.rightButton.angle -= 90;
+            gameState.rightButton.on('pointerover', function () {
+                gameState.movingLeft = false;
+                gameState.movingRight = true;
+            });
+            gameState.rightButton.on('pointerout', function () {
+                gameState.movingRight = false;
+            });
+
+            gameState.leftButton = this.add.sprite(150,480,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.leftButton.setAlpha(0.5);
+            gameState.leftButton.flipY = true;
+            gameState.leftButton.angle += 90;
+            gameState.leftButton.on('pointerover', function () {
+                gameState.movingRight = false;
+                gameState.movingLeft = true;
+            });
+            gameState.leftButton.on('pointerout', function () {
+                gameState.movingLeft = false;
             });
         } 
 
-        gameState.upButton = this.add.sprite(150,420,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
-        gameState.upButton.setAlpha(0.5);
-        gameState.upButton.on('pointerover', function () {
-            gameState.movingDown = false;
-            gameState.movingUp = true;
-        });
-        gameState.upButton.on('pointerout', function () {
-            gameState.movingUp = false;
-        });
-
-        gameState.downButton = this.add.sprite(150,530,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
-        gameState.downButton.setAlpha(0.5);
-        gameState.downButton.flipY = true;
-        gameState.downButton.on('pointerover', function () {
-            gameState.movingUp = false;
-            gameState.movingDown = true;
-        });
-        gameState.downButton.on('pointerout', function () {
-            gameState.movingDown = false;
-        });
-
-        gameState.rightButton = this.add.sprite(220,550,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
-        gameState.rightButton.setAlpha(0.5);
-        gameState.rightButton.flipY = true;
-        gameState.rightButton.angle -= 90;
-        gameState.rightButton.on('pointerover', function () {
-            gameState.movingLeft = false;
-            gameState.movingRight = true;
-        });
-        gameState.rightButton.on('pointerout', function () {
-            gameState.movingRight = false;
-        });
-
-        gameState.leftButton = this.add.sprite(150,480,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
-        gameState.leftButton.setAlpha(0.5);
-        gameState.leftButton.flipY = true;
-        gameState.leftButton.angle += 90;
-        gameState.leftButton.on('pointerover', function () {
-            gameState.movingRight = false;
-            gameState.movingLeft = true;
-        });
-        gameState.leftButton.on('pointerout', function () {
-            gameState.movingLeft = false;
-        });
+        
 
 
 
