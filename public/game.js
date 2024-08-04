@@ -21,7 +21,7 @@ const config = {
     //subclass scenes 
     scene:[MenuScene,MatchScene,ArenaScene],
     input: {
-        activePointers: 2 // Allow up to 2 touch inputs
+        activePointers: 3 // Allow up to 2 touch inputs
     },
     //phasers scale system to fit into the brower
     scale: {
