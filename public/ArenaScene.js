@@ -187,38 +187,74 @@ class ArenaScene extends Phaser.Scene {
         gameState.platformCollider = this.physics.add.overlap(gameState.player, gameState.platforms, checkPlatformOverlap, null, this);
         
         
+        if (!this.sys.game.device.os.android && !this.sys.game.device.os.iOS && !this.sys.game.device.os.windowsPhone){
+            this.input.on('pointerdown', (pointer)=>{
+                if(gameState.playerStats.attackReady == true){
+                    
+                    gameState.playerStats.attackAnimation = true;
+                    gameState.playerStats.attackReady = false;
+                    gameState.player.anims.play('attack',true);
+                    socket.emit("updateAnim","attack");
+                    
+                    
+                    var bullet = scene.physics.add.sprite(gameState.player.x+100,gameState.player.y+70, "40x40");
+                    gameState.bulletCondition(scene, bullet, socket);
+                    
+                    
+                    
+                    scene.time.addEvent({
+                        delay: 500,
+                        callback: ()=>{
+                            gameState.playerStats.attackReady = true;
+                        },
+                        callbackScope: this
+                    });
+                    scene.time.addEvent({
+                        delay: 100,
+                        callback: ()=>{
+                            gameState.playerStats.attackAnimation = false;
+                        },
+                        callbackScope: this
+                    });
+                    
+                }
+            }, this);
+        }else {
+            gameState.attackButton = this.add.sprite(1050,520,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.attackButton.setAlpha(0.5);
+            gameState.attackButton.on('pointerdown', function () {
+                if(gameState.playerStats.attackReady == true && gameState.playerStats.attackReady == true){
+                    
+                    gameState.playerStats.attackAnimation = true;
+                    gameState.playerStats.attackReady = false;
+                    gameState.player.anims.play('attack',true);
+                    socket.emit("updateAnim","attack");
+                    
+                    
+                    var bullet = scene.physics.add.sprite(gameState.player.x+100,gameState.player.y+70, "40x40");
+                    gameState.bulletCondition(scene, bullet, socket);
+                    
+                    
+                    
+                    scene.time.addEvent({
+                        delay: 500,
+                        callback: ()=>{
+                            gameState.playerStats.attackReady = true;
+                        },
+                        callbackScope: scene
+                    });
+                    scene.time.addEvent({
+                        delay: 100,
+                        callback: ()=>{
+                            gameState.playerStats.attackAnimation = false;
+                        },
+                        callbackScope: scene
+                    });
+                    
+                }
+            });
+        }
         
-        this.input.on('pointerdown', (pointer)=>{
-            if(gameState.playerStats.attackReady == true){
-                
-                gameState.playerStats.attackAnimation = true;
-                gameState.playerStats.attackReady = false;
-                gameState.player.anims.play('attack',true);
-                socket.emit("updateAnim","attack");
-                
-                
-                var bullet = scene.physics.add.sprite(gameState.player.x+100,gameState.player.y+70, "40x40");
-                gameState.bulletCondition(scene, bullet, socket);
-                
-                
-                
-                scene.time.addEvent({
-                    delay: 500,
-                    callback: ()=>{
-                        gameState.playerStats.attackReady = true;
-                    },
-                    callbackScope: this
-                });
-                scene.time.addEvent({
-                    delay: 100,
-                    callback: ()=>{
-                        gameState.playerStats.attackAnimation = false;
-                    },
-                    callbackScope: this
-                });
-                
-            }
-        }, this);
         
 
         gameState.createPlayer(scene,800,200);
