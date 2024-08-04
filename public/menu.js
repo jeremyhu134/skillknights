@@ -37,6 +37,7 @@ class MenuScene extends Phaser.Scene {
 
         this.load.image('battlefield-background','images/battlefield-background.png');
         this.load.image('nametag-background','images/nametag-background.png');
+        this.load.image('arena-mobilebutton','images/arena-mobilebutton.png');
 
 
         this.load.image('40x40','images/40x40_block.png');

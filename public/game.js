@@ -15,7 +15,7 @@ const config = {
         arcade: {
             gravity: { y: 1200 },
             enableBody: true,
-            debug: false
+            //debug: true
         }
     },
     //subclass scenes 
