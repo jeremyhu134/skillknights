@@ -220,7 +220,7 @@ class ArenaScene extends Phaser.Scene {
                 }
             }, this);
         }else {
-            gameState.attackButton = this.add.sprite(1050,520,"arena-mobilebutton").setOrigin(0,0).setScale(1.5).setInteractive();
+            gameState.attackButton = this.add.sprite(1050,520,"arena-mobileattackbutton").setOrigin(0,0).setScale(1.5).setInteractive();
             gameState.attackButton.setAlpha(0.5);
             gameState.attackButton.on('pointerdown', function () {
                 if(gameState.playerStats.attackReady == true && gameState.playerStats.attackReady == true){
